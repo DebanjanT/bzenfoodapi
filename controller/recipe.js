@@ -80,7 +80,7 @@ export const createRecipe = async (req, res) => {
       req.body;
     console.log(name, description, picture, ingredients, steps, raw_steps);
     // return;
-    if (!name || !description || !picture || !ingredients || !steps)
+    if (!name || !description || !ingredients || !steps)
       return res.status(404).send("Crerdentials required");
     const newSlug = slugify(`${name}${new Date()}`);
     //create a new Recipe
@@ -127,6 +127,24 @@ export const getSingleRecipe = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).send("Internal server error");
+  }
+};
+
+export const deleteRecipe = async (req, res) => {
+  try {
+    const { slug } = req.params;
+
+    const recipe = await Recipe.findOneAndRemove({
+      createdBy: req.user._id,
+      slug: slug,
+    });
+
+    if (!recipe) return res.status(404).send("Recipe not found");
+
+    return res.json({ deleted: true });
+  } catch (err) {
+    console.log(err);
+    return res.statu(500).send("Server Error");
   }
 };
 
