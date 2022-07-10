@@ -3,7 +3,7 @@ import {
   createRecipe,
   getSingleRecipe,
   getUserRecipes,
-  removeImage,
+  // removeImage,
   uploadImage,
   updateSingleRecipe,
   searchQuery,
@@ -19,7 +19,7 @@ router.post("/recipe/create", verifyJwtToken, createRecipe);
 router.get("/recipe/get/:slug", getSingleRecipe);
 router.post("/recipe/update/:slug", verifyJwtToken, updateSingleRecipe);
 router.post("/recipe/upload/image", verifyJwtToken, uploadImage);
-router.post("/recipe/remove/image", verifyJwtToken, removeImage);
+// router.post("/recipe/remove/image", verifyJwtToken, removeImage);
 router.get("/user/recipes", verifyJwtToken, getUserRecipes);
 router.post("/search", searchQuery);
 module.exports = router;

@@ -1,6 +1,6 @@
 import Recipe from "../models/recipe";
 import BzUser from "../models/user";
-import AWS, { TimestreamQuery } from "aws-sdk";
+import AWS from "aws-sdk";
 import Config from "../aws.config";
 var slugify = require("slugify");
 import { v4 as uuidv4 } from "uuid";
@@ -50,26 +50,29 @@ export const uploadImage = async (req, res) => {
   }
 };
 
-export const removeImage = async (req, res) => {
-  try {
-    const { image } = req.body;
-    console.log(image);
-    const params = {
-      Bucket: image.Bucket,
-      Key: image.Key,
-    };
+/**
+ * Had to comment dute to aws sdk access denined error which is stopping the server
+ */
+// export const removeImage = async (req, res) => {
+//   try {
+//     const { image } = req.body;
+//     console.log(image);
+//     const params = {
+//       Bucket: image.Bucket,
+//       Key: image.Key,
+//     };
 
-    S3.deleteObject(params, (err, data) => {
-      if (err) {
-        console.log("Aws delete cb err", err);
-        res.sendStatus(400);
-      }
-      res.send({ deleted: true });
-    });
-  } catch (err) {
-    console.log("AWS express err", err);
-  }
-};
+//     S3.deleteObject(params, (err, data) => {
+//       if (err) {
+//         console.log("Aws delete cb err", err);
+//         res.sendStatus(400);
+//       }
+//       res.send({ deleted: true });
+//     });
+//   } catch (err) {
+//     console.log("AWS express err", err);
+//   }
+// };
 
 export const createRecipe = async (req, res) => {
   try {
